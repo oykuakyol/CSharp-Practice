@@ -28,7 +28,6 @@ class Program
         double result = 0;
         bool validOperation = true;
 
-        // 4. Hesaplama
         switch (op)
         {
             case "+":
@@ -55,8 +54,9 @@ class Program
                 break;
         }
 
-        // 5. Sonuç
+     
         if (validOperation)
             Console.WriteLine($"Result: {result}");
     }
 }
+
