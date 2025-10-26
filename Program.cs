@@ -1,62 +1,58 @@
-﻿
-using System;
-
-class Program
-{ 
+﻿using System;
+using System.Diagnostics;
+using System.Drawing;
+class Program2
+{
     static void Main()
     {
-        Console.WriteLine("=== Mini Calculator ===");
-
-        Console.Write("Enter the first number: ");
-        bool isNumber1 = double.TryParse(Console.ReadLine(), out double num1);
-
+        Console.WriteLine("Grade Point Average Calculator");
+        // Take the course count
         
-        Console.Write("Enter the second number: ");
-        bool isNumber2 = double.TryParse(Console.ReadLine(), out double num2);
-
-        
-        if (!isNumber1 || !isNumber2)
+        Console.WriteLine("How many courses do you have?");
+        bool isValidCount = int.TryParse(Console.ReadLine(), out int courseCount);
+        if (!isValidCount || courseCount <= 0)
         {
-            Console.WriteLine("⚠️ Please enter valid numbers!");
+
+            Console.WriteLine("Please enter a valid course count!");
             return;
         }
+        double sum = 0;
 
-       
-        Console.Write("Choose the operation type (+, -, *, /): ");
-        string op = Console.ReadLine();
+        // Take grade for each course
 
-        double result = 0;
-        bool validOperation = true;
-
-        switch (op)
+        for (int i=1;i<= courseCount; i++)
         {
-            case "+":
-                result = num1 + num2;
-                break;
-            case "-":
-                result = num1 - num2;
-                break;
-            case "*":
-                result = num1 * num2;
-                break;
-            case "/":
-                if (num2 == 0)
-                {
-                    Console.WriteLine("⚠️ 0 division error!");
-                    validOperation = false;
-                }
-                else
-                    result = num1 / num2;
-                break;
-            default:
-                Console.WriteLine("⚠️ You chose invalid operation!");
-                validOperation = false;
-                break;
-        }
+            Console.WriteLine($"Enter the {i} course grade");
+            bool isValidGrade = double.TryParse(Console.ReadLine(), out double grade);
 
-     
-        if (validOperation)
-            Console.WriteLine($"Result: {result}");
+            if(!isValidGrade || grade<0||grade>100){
+                Console.WriteLine("Please enter a valid grade between 0-100!");
+                i--;  // Ask again for the same course
+                continue;
+
+            }
+            sum += grade;
+        }
+        // Calculate the average
+        double average = sum / courseCount;
+   
+       Console.WriteLine($"\nYour average is: {average:F2}");
+
+        // Pass-fail control
+
+        if (average >= 50)
+        
+            Console.WriteLine("Congrats,you passed! ");
+
+
+          else
+                Console.WriteLine("Unfortunately you failed.");
+
+        }
+    
     }
-}
+
+    
+
+
 
